@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+  <h2>Dear {{current_user.username}},  Create  new Post</h2>
+  <form  action="" method="post">
+    {{form.hidden_tag()}}
+
+
+    <div class="form-group"">
+      {{ form.Title.label(class="form-control-label") }}
+      {% if form.Title.errors %}
+      {{ form.Title(class="form-control form-control-lg is-invalid") }}
+      <div class="invalid-feedback">
+        {% for error in form.Title.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% else %}
+      {{ form.Title(class="form-control form-control-lg") }}
+      {% endif %}
+    </div>
+
+    <div class="form-group"">
+      {{ form.Body.label(class="form-control-label") }}
+      {% if form.Body.errors %}
+      {{ form.Body(class="form-control form-control-lg is-invalid") }}
+      <div class="invalid-feedback">
+        {% for error in form.Body.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% else %}
+      {{ form.Body(class="form-control form-control-lg") }}
+      {% endif %}
+    </div>
+
+
+
+
+    <div class="form-group"">
+      {{form.submit(class="btn btn-primary")}}
+    </div>
+
+
+
+</form>
+
+{% endblock %}

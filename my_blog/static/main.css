@@ -1,0 +1,10 @@
+.account-img {
+  height: 50px;
+  width: 50px;
+}
+
+.single-post{
+  margin-top:2rem;
+  margin-bottom: 2rem;
+  border: 1px solid black
+}

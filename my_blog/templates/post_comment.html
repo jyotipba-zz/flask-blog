@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+        <div class= "media-body">
+
+            <h4 class="media-heading" ><a href="">{{ post.author.username }} </a><small>{{ post.timestamp.strftime('%Y-%m-%d') }}</small></h4>
+
+
+            <small class="text-muted">{{ post.timestamp.strftime('%r') }}</small>
+            <h2 class="media-heading">{{ post.title}}</h2>
+            <p>{{ post.body}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <form  action="" method="post">
+      {{form.hidden_tag()}}
+        <div class="form-group"">
+          {{ form.body.label(class="form-control-label") }}
+            {% if form.body.errors %}
+              {{ form.body(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.body.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+            {% else %}
+            {{ form.body(class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+
+        <div class="form-group"">
+            {{form.submit(class="btn btn-primary")}}
+        </div>
+
+    </form>
+  </div>
+</div>
+{% endblock %}
