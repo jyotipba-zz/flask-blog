@@ -3,7 +3,7 @@ from flask import (render_template, url_for, flash,
                    redirect, request, abort)
 from flask_login import current_user, login_required
 from my_blog import db
-from my_blog.models import Post,Comment
+from my_blog.models import Post,Comment,User
 from my_blog.posts.forms import CreatePost, CommentPostForm
 
 posts = Blueprint('posts' , __name__)
@@ -84,3 +84,14 @@ def show_comment(post_id):
     comments = Comment.query.filter(Comment.comment_id == post_id)
     #comments = Comment.query.all()
     return render_template('show_comment.html' , post = post , comments = comments)
+
+
+
+@posts.route("/user/<string:username>")
+def user_all_post(username):
+     page = request.args.get('page', 1, type=int)
+     user = User.query.filter_by(username=username).first_or_404()
+     posts = Post.query.filter_by(author=user)\
+        .order_by(Post.timestamp.desc())\
+        .paginate(page=page, per_page=2)
+     return render_template('user_posts.html' , user = user, posts=posts)
