@@ -2,8 +2,8 @@ from flask import current_app
 from my_blog import db, login
 from datetime import datetime
 from flask_login import UserMixin
-
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
 
 
 
@@ -11,7 +11,13 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 def load_user(id):
     return User.query.get(int(id))
 
-class User(UserMixin, db.Model, ):
+
+
+
+
+
+
+class User( db.Model,UserMixin ):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
@@ -19,7 +25,6 @@ class User(UserMixin, db.Model, ):
     image_file = db.Column(db.String(20), nullable = False, default = 'default.jpg')
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     comment = db.relationship('Comment', backref='commentator', lazy='dynamic')
-
 
     def get_reset_token(self, expires_sec=1800):  # IN how many sec, token expires
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
