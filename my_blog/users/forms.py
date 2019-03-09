@@ -12,7 +12,6 @@ class RegistrationForm(FlaskForm):
     password =  PasswordField('Password', validators=[DataRequired()])
     repeat_password = PasswordField('Confirm Password', validators=[DataRequired() , EqualTo('password')] )
     submit = SubmitField('Sign Up')
-
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
@@ -22,8 +21,6 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('This email is already taken. Please use a different email address.')
-
-
 
 
 class LoginForm(FlaskForm):
@@ -55,7 +52,6 @@ class UpdateAccountForm(FlaskForm):
 class RequestResetForm(FlaskForm):
     email = StringField("email", validators=[DataRequired(),Email()])
     submit = SubmitField("Request Reset Password")
-
     def validate_email(self, email):   # second arugment should always be
       # the field we want to validate
         user = User.query.filter_by(email= email.data).first()

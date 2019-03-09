@@ -2,42 +2,31 @@
 
 {% block content %}
 
-<div class="container  ">
-  <div class="row">
-    <div class="col single-post" >
-      <div class="media">
-        <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
-        <div class= "media-body">
-
-            <h4 class="media-heading"><a href="">{{ post.author.username }} </a><small>{{ post.timestamp.strftime('%Y-%m-%d') }}</small></h4>
-
-
-            <small class="text-muted">{{ post.timestamp.strftime('%r') }}</small>
-            <h2 class="media-heading">{{ post.title}}</h2>
-            <p>{{ post.body}}</p>
+  <div class="container  ">
+    <div class="row">
+      <div class="col single-post" >
+        <div class="media">
+          <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+          <div class= "media-body">
+          <h4 class="media-heading"><a href="">{{ post.author.username }} </a><small>{{ post.timestamp.strftime('%Y-%m-%d') }}</small></h4>
+          <small class="text-muted">{{ post.timestamp.strftime('%r') }}</small>
+          <h2 class="media-heading">{{ post.title}}</h2>
+          <p>{{ post.body}}</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-<p class="bg-info" > Comments</p>
-
-
-    {%  for comment in comments %}
-    <article>
-       <div class="media">
-         <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pics/' + comment.commentator.image_file) }}">
-         <div class= "media-body">
-           <h5 class="media-heading"><a href="">{{ comment.commentator.username }} </a><small>{{ comment.c_timestamp.strftime('%Y-%m-%d') }}</small></h5>
-           <p>{{ comment.c_body}}</p>
-         </div>
-      </div>
-    </article>
+  <p class="bg-info" > Comments</p>
+  {%  for comment in comments %}
+      <article>
+         <div class="media">
+           <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pics/' + comment.commentator.image_file) }}">
+           <div class= "media-body">
+             <h5 class="media-heading"><a href="">{{ comment.commentator.username }} </a><small>{{ comment.c_timestamp.strftime('%Y-%m-%d') }}</small></h5>
+             <p>{{ comment.c_body}}</p>
+           </div>
+        </div>
+      </article>
     {% endfor %}
-
-
-
-
-
 {% endblock %}

@@ -1,21 +1,14 @@
 {% extends "layout.html" %}
-
 {% block content %}
-
-
-
   <article >
      <div style="margin-top:2rem; margin-bottom: 2rem; border: 1px solid black " class="media">
        <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
        <div class= "media-body">
-
-      <h4 class="media-heading"><a href="">{{ post.author.username }} </a><small>{{ post.timestamp.strftime('%Y-%m-%d') }}</small></h4>
-
-
-      <small class="text-muted">{{ post.timestamp.strftime('%r') }}</small>
-      <h2 class="media-heading">{{ post.title}}</h2>
-       <p>{{ post.body}}</p>
-     </div>
+         <h4 class="media-heading"><a href="">{{ post.author.username }} </a><small>{{ post.timestamp.strftime('%Y-%m-%d') }}</small></h4>
+         <small class="text-muted">{{ post.timestamp.strftime('%r') }}</small>
+        <h2 class="media-heading">{{ post.title}}</h2>
+        <p>{{ post.body}}</p>
+      </div>
      </div>
      {% if post.author == current_user %}
        <a class ='btn btn-secondary btn-sm m-1'href="{{url_for('posts.update', post_id = post.id)}}">Update</a>
@@ -25,31 +18,23 @@
     <a class ='btn btn-secondary btn-sm m-1'href="{{url_for('posts.show_comment', post_id = post.id)}}">show comments</a>
   </article>
 
-
 <!-- Modal -->
-<div class="modal fade" id="deleteModalLong" tabindex="-1" role="dialog" aria-labelledby="deleteModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deleteModalLongTitle">Delete post ?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <form  action="{{url_for('posts.delete_post', post_id= post.id)}}" method="post">
-          <input class='btn btn-danger' type="submit" name="" value="Delete">
-
-        </form>
-
+  <div class="modal fade" id="deleteModalLong" tabindex="-1" role="dialog" aria-labelledby="deleteModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLongTitle">Delete post ?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <form  action="{{url_for('posts.delete_post', post_id= post.id)}}" method="post">
+            <input class='btn btn-danger' type="submit" name="" value="Delete">
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
-
-
-
-
 {% endblock %}

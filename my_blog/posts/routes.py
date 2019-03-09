@@ -8,7 +8,6 @@ from my_blog.posts.forms import CreatePost, CommentPostForm
 
 posts = Blueprint('posts' , __name__)
 
-
 @posts.route('/post/new', methods=['GET', 'POST'])
 @login_required
 def create_post():
@@ -20,7 +19,6 @@ def create_post():
         flash("Dear {}, your post is submitted".format(current_user.username) , 'success')
         return redirect(url_for('main.home'))
     return render_template('new_post.html', title='new_post', form=form)
-
 
 @posts.route('/post/<int:post_id>')
 def post(post_id):
@@ -41,10 +39,8 @@ def update(post_id):
         flash("Your post has been updated", 'success')
         return redirect(url_for('posts.post', post_id = post.id))
     elif request.method == 'GET':
-
         form.Title.data = post.title
         form.Body.data = post.body
-
     return render_template('new_post.html', title='update', form=form)
 
 @posts.route('/post/<int:post_id>/delete', methods=['POST'])
@@ -53,15 +49,10 @@ def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
     if post.author != current_user:
         abort(403)
-
     db.session.delete(post)
     db.session.commit()
     flash("Your post has been deleted", 'success')
     return redirect(url_for('main.home'))
-
-
-
-
 
 @posts.route('/post/<int:post_id>/post_comment', methods=['POST', 'GET'])
 @login_required
@@ -76,7 +67,6 @@ def post_comment(post_id):
         return redirect(url_for('posts.post', post_id = post.id))
     return render_template('post_comment.html' , post = post, title = 'post_comment' , form = form)
 
-
 @posts.route('/post/<int:post_id>/show_comment', methods=['POST', 'GET'])
 @login_required
 def show_comment(post_id):
@@ -84,8 +74,6 @@ def show_comment(post_id):
     comments = Comment.query.filter(Comment.comment_id == post_id)
     #comments = Comment.query.all()
     return render_template('show_comment.html' , post = post , comments = comments)
-
-
 
 @posts.route("/user/<string:username>")
 def user_all_post(username):

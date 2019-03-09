@@ -8,9 +8,7 @@ from my_blog.users.utils import  send_reset_email, save_picture
 from werkzeug.security import generate_password_hash,check_password_hash
 from werkzeug.urls import url_parse
 
-
 users = Blueprint('users' , __name__)
-
 
 @users.route('/register', methods=['GET', 'POST'])
 def register():
@@ -23,7 +21,6 @@ def register():
         flash("Dear {}, your account is succesfully created. You are now able to log in".format(form.username.data) , 'success')
         return redirect(url_for('users.login'))
     return render_template('register.html', title='register', form=form)
-
 
 @users.route('/login', methods=['GET', 'POST'])
 def login():
@@ -41,9 +38,7 @@ def login():
         #else:
             #flash('Invalid email or password', 'danger')
             #return redirect(url_for('login'))
-
     return render_template('login.html', title='log in', form=form)
-
 
 @users.route("/logout")
 @login_required
@@ -51,12 +46,9 @@ def logout():
     logout_user()
     return redirect(url_for('main.home'))
 
-
-
 @users.route("/account", methods=["GET", "POST"])
 @login_required
 def account():
-
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
@@ -74,8 +66,6 @@ def account():
     return render_template('account.html', title='Account',
                            image_file=image_file, form=form)
 
-
-
 @users.route("/reset_password", methods=["POST", "GET"])
 def reset_request():
     if current_user.is_authenticated:   # to make sure user is logged out
@@ -87,8 +77,6 @@ def reset_request():
         flash("Email has been send to reset password" , 'info')
         return redirect(url_for('users.login'))
     return render_template('reset_request.html' , title = 'reset_password' , form = form)
-
-
 
 @users.route("/reset_password/<token>", methods=["POST", "GET"])
 def reset_token(token):
